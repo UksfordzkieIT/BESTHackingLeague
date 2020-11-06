@@ -1,0 +1,36 @@
+﻿@model EkoApp.ViewsModel.AllBillsModel
+
+@{
+    ViewData["Title"] = "All bills";
+}
+
+<div class="col-12 border  p-3 mt-3 bg-white">
+    <form>
+        @{
+            foreach (var bill in Model.FuelBills)
+            {
+                <div class="text-dark mb-2">
+                    <a class="text-dark" asp-controller="FuelBill" asp-action="Get" asp-route-billId="@bill.Id">Fuel Bill | Date: @bill.DateTime | Price per litr: @bill.PricePerLitr | Total price: @bill.TotalPrice | Volume: @bill.Volume</a>
+                    <a class="text-dark" asp-controller="FuelBill" asp-action="Edit" asp-route-billId="@bill.Id"><i class="fas fa-edit fa-align-center"></i></a>
+                    <a class="text-dark" asp-controller="FuelBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
+                </div>
+            }
+            foreach (var bill in Model.WaterBills)
+            {
+                <div class="text-dark mb-2">
+                    <a class="text-dark" asp-controller="WaterBill" asp-action="Get" asp-route-billId="@bill.Id">Water Bill | Date: @bill.DateTime | Price: @bill.Price | Volume: @bill.Volume </a>
+                    <a class="text-dark" asp-controller="WaterBill" asp-action="Edit" asp-route-billId="@bill.Id"><i class="fas fa-edit fa-align-center"></i></a>
+                    <a class="text-dark" asp-controller="WaterBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
+                </div>
+            }
+            foreach (var bill in Model.TicketBills)
+            {
+                <div class="text-dark mb-2">
+                    <a class="text-dark" asp-controller="TicketBill" asp-action="Get" asp-route-billId="@bill.Id">Ticket Bill | Date: @bill.DateTime | Price: @bill.Price</a>
+                    <a class="text-dark" asp-controller="TicketBill" asp-action="Edit" asp-route-billId="@bill.Id"><i class="fas fa-edit fa-align-center"></i></a>
+                    <a class="text-dark" asp-controller="TicketBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
+                </div>
+            }
+        }
+    </form>
+</div>

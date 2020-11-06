@@ -1,0 +1,13 @@
+﻿@model WaterBill
+<div class="col-12 border border-primary h-auto text-center bg-light py-2"> Water Bill</div>
+
+<div class="btn-toolbar justify-content-md-center row col-12 bg-light">
+
+    <div class="mt-1 pl-3 pt-1"> Price: @Model.Price</div>
+    <div class="mt-1 pl-3 pt-1">Volume: @Model.Volume</div>
+    <div class="mt-1 pl-3 pt-1 small">@Model.DateTime</div>
+    <div class="mt-1 pl-3 pt-1">
+        <a class="text-dark" asp-controller="WaterBill" asp-action="Edit" asp-route-billId="@Model.Id"><i class="fas fa-edit fa-align-center"></i></a>
+        <a class="text-dark" asp-controller="WaterBill" asp-action="Delite" asp-route-billId="@Model.Id"> <i class="fas fa-trash-alt"></i></a>
+        </div>
+    </div>

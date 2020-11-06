@@ -79,10 +79,7 @@ C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\bin\Debug\netcoreap
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\Account\Home.cshtml.g.cs
-C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\WaterBill\AddBill.cshtml.g.cs
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\WaterBill\Edit.cshtml.g.cs
-C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\WaterBill\Index.cshtml.g.cs
-C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\WaterBill\Privacy.cshtml.g.cs
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\bin\Debug\netcoreapp3.1\refs\Microsoft.AspNetCore.Antiforgery.dll
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\bin\Debug\netcoreapp3.1\refs\Microsoft.AspNetCore.Authentication.Abstractions.dll
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\bin\Debug\netcoreapp3.1\refs\Microsoft.AspNetCore.Authentication.Cookies.dll
@@ -384,3 +381,12 @@ C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\bin\Debug\netcoreap
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\EkoApp.csproj.CoreCompileInputs.cache
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\EkoApp.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\EkoApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\WaterBill\Add.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\FuelBill\Add.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\FuelBill\Edit.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\TicketBill\Add.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\TicketBill\Edit.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\Statistic\AllBills.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\WaterBill\Get.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\FuelBill\Get.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\TicketBill\Get.cshtml.g.cs

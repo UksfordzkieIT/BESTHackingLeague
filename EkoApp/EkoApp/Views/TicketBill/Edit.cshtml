@@ -1,4 +1,4 @@
-﻿@model EkoApp.ViewsModel.WaterBillToEdit
+﻿@model EkoApp.ViewsModel.TicketBillToEdit
 
 <h4 class="text-center text-white">Edit Post</h4>
 <hr />
@@ -18,15 +18,6 @@
                 </div>
                 <span asp-validation-for="@Model.Price" class="text-danger"></span>
             </div>
-            <div class="form-group row">
-                <div class="col-3 text-center">
-                    <label asp-for="@Model.Volume" class="control-label"></label>
-                </div>
-                <div class="col-6">
-                    <input asp-for="@Model.Volume" class="form-control" />
-                </div>
-                <span asp-validation-for="@Model.Volume" class="text-danger"></span>
-            </div>
 
             <div class="row">
                 <div class="btn-group col-6 offset-3 mb-1">
@@ -35,7 +26,8 @@
             </div>
         </div>
 
-</form>
+
+    </form>
 
 </div>
 <div>

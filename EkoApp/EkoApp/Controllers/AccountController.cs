@@ -9,6 +9,10 @@ using EkoApp.Models;
 using Microsoft.AspNetCore.Identity;
 using EkoApp.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using EkoApp.Data;
+using EkoApp.ViewsModel;
 
 namespace EkoApp.Controllers
 {
@@ -16,11 +20,23 @@ namespace EkoApp.Controllers
 	{
 		private readonly SignInManager<UserDb> _signInManager;
 		private readonly UserManager<UserDb> _userManager;
+		private readonly IHttpContextAccessor _httpContextAccessor;
+		private readonly string _userId;
+		private readonly AppDbContext _appDbContext;
 
-		public AccountController(SignInManager<UserDb> signInManager, UserManager<UserDb> userManager)
+		public AccountController(SignInManager<UserDb> signInManager,
+			UserManager<UserDb> userManager,
+			IHttpContextAccessor httpContextAccessor,
+			AppDbContext appDbContext)
 		{
 			_signInManager = signInManager;
 			_userManager = userManager;
+			if (User != null)
+			{
+				_httpContextAccessor = httpContextAccessor;
+				_userId = httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+			}
+			_appDbContext = appDbContext;
 		}
 		[HttpGet]
 		[Authorize]
@@ -85,5 +101,6 @@ namespace EkoApp.Controllers
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
+
 	}
 }

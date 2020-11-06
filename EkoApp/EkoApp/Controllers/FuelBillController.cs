@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using EkoApp.Data;
 using EkoApp.Entities;
 using EkoApp.Models;
@@ -14,13 +15,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace EkoApp.Controllers
 {
 	[Authorize]
-	public class WaterBillController : Controller
-	{
+	public class FuelBillController : Controller
+	{ 
 		private readonly AppDbContext _appDbContext;
 		private readonly SignInManager<UserDb> _signInManager;
 		private readonly IHttpContextAccessor _httpContextAccessor;
+
 		private readonly string _userId;
-		public WaterBillController(AppDbContext appDbContext,
+		public FuelBillController(AppDbContext appDbContext,
 			SignInManager<UserDb> signInManager,
 			IHttpContextAccessor httpContextAccessor)
 		{
@@ -36,56 +38,62 @@ namespace EkoApp.Controllers
 		[HttpGet]
 		public IActionResult Add()
 		{
-			return View(new WaterBill());
+			return View(new FuelBill());
 		}
 		[HttpPost]
-		public IActionResult Add(WaterBill waterBill)
+		public IActionResult Add(FuelBill fuelBill)
 		{
 			if (!ModelState.IsValid)
 			{
-				return View(waterBill);
+				return View(fuelBill);
 			}
-			var bill = new WaterBill
+			var bill = new FuelBill
 			{
 				Id = Guid.NewGuid(),
 				DateTime = DateTime.Now,
-				Price = waterBill.Price,
-				Volume = waterBill.Volume,
+				PricePerLitr = fuelBill.PricePerLitr,
+				TotalPrice = fuelBill.TotalPrice,
+				Volume = fuelBill.Volume,
 				UserDbId = Guid.Parse(_userId)
 			};
 
-			_appDbContext.WaterBills.Add(bill);
+			_appDbContext.FuelBills.Add(bill);
 			_appDbContext.SaveChanges();
 			return View();
 		}
-		//[HttpGet("{billId}")]
+		//[HttpGet("Edit/{billId}")]
 		public IActionResult Edit(string billId)
 		{
-
 			if (string.IsNullOrWhiteSpace(billId))
 			{
 				return NotFound();
 			}
-			var bill = _appDbContext.WaterBills.FirstOrDefault(x => x.Id == Guid.Parse(billId));
+			var bill = _appDbContext.FuelBills.FirstOrDefault(x => x.Id == Guid.Parse(billId));
 
 			if (bill == null)
 			{
 				return NotFound();
 			}
-			return View(new WaterBillToEdit { Id = bill.Id, Price = bill.Price, Volume = bill.Volume });
+			return View(new FuelBillToEdit { 
+				Id = bill.Id,
+				PricePerLitr = bill.PricePerLitr,
+				TotalPrice = bill.TotalPrice,
+				Volume = bill.Volume
+			});
 		}
 		//[HttpPost("Update/{billId}")]
 		[ValidateAntiForgeryToken]
-		public IActionResult Update(WaterBillToEdit waterBillToEdit)
+		public IActionResult Update(FuelBillToEdit fuelBillToEdit)
 		{
-			if (waterBillToEdit == null)
+			if (fuelBillToEdit == null)
 			{
 				return NotFound();
 			}
-			var currBill = _appDbContext.WaterBills.FirstOrDefault(x => x.Id == waterBillToEdit.Id);
-			currBill.Volume = waterBillToEdit.Volume;
-			currBill.Price = waterBillToEdit.Price;
-			_appDbContext.WaterBills.Update(currBill);
+			var currBill = _appDbContext.FuelBills.FirstOrDefault(x => x.Id == fuelBillToEdit.Id);
+			currBill.PricePerLitr = fuelBillToEdit.PricePerLitr;
+			currBill.TotalPrice = fuelBillToEdit.TotalPrice;
+			currBill.Volume = fuelBillToEdit.Volume;
+			_appDbContext.FuelBills.Update(currBill);
 			_appDbContext.SaveChanges();
 			return RedirectToAction("AllBills", "Statistic");
 		}
@@ -95,8 +103,8 @@ namespace EkoApp.Controllers
 			var id = Guid.Parse(billId);
 			if (id != Guid.Empty)
 			{
-				var bill = _appDbContext.WaterBills.FirstOrDefault(x => x.Id == id);
-				_appDbContext.WaterBills.Remove(bill);
+				var bill = _appDbContext.FuelBills.FirstOrDefault(x => x.Id == id);
+				_appDbContext.FuelBills.Remove(bill);
 				_appDbContext.SaveChanges();
 				return RedirectToAction("AllBills", "Statistic");
 			}
@@ -110,7 +118,7 @@ namespace EkoApp.Controllers
 			var id = Guid.Parse(billId);
 			if (id != Guid.Empty)
 			{
-				var billToReturn = _appDbContext.WaterBills.FirstOrDefault(x => x.Id == id);
+				var billToReturn = _appDbContext.TicketBills.FirstOrDefault(x => x.Id == id);
 				return View(billToReturn);
 			}
 			else
