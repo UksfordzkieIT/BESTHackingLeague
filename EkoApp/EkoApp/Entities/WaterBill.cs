@@ -13,6 +13,6 @@ namespace EkoApp.Models
 		public decimal Price { get; set; }
 		public DateTime DateTime { get; set; }
 		public decimal Volume { get; set; }
-		public Guid UserId { get; set; }
+		public Guid UserDbId { get; set; }
 	}
 }

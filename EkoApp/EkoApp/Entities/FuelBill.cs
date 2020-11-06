@@ -14,7 +14,7 @@ namespace EkoApp.Models
 		public DateTime DateTime { get; set; }
 		public decimal Volume { get; set; }
 		public decimal PricePerLitr { get; set; }
-		public Guid UserId { get; set; }
+		public Guid UserDbId { get; set; }
 
 	}
 }
