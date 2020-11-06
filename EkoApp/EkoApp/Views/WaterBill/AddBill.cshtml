@@ -1,0 +1,47 @@
+﻿@model WaterBill
+
+@{
+    ViewData["Title"] = "Water Bill";
+}
+
+<h1 class="col-12 text-center">Add water bill</h1>
+
+<hr />
+<div class="row">
+    <div class="col-12 border p-3 mt-5">
+        <form asp-action="AddBill" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3 text-center">
+                    <label asp-for="Price" class="control-label"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3 text-center">
+                    <label asp-for="Volume" class="control-label"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Volume" class="form-control" />
+                </div>
+                <span asp-validation-for="Volume" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="btn-group col-6 offset-3">
+                    <input type="submit" class="btn btn-success" value="Register" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

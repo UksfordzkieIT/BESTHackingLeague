@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EkoApp.Data;
+using EkoApp.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,9 +30,23 @@ namespace EkoApp
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddControllersWithViews();
+			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 			services.AddDbContext<AppDbContext>(
 				options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddIdentity<UserDb, IdentityRole<Guid>>(config =>
+			{
+				config.Password.RequiredLength = 1;
+				config.Password.RequireDigit = false;
+				config.Password.RequireNonAlphanumeric = false;
+				config.Password.RequireUppercase = false;
+				config.Password.RequiredUniqueChars = 0;
+				config.Password.RequireLowercase = false;
+
+			})
+				.AddEntityFrameworkStores<AppDbContext>();
+
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,13 +67,14 @@ namespace EkoApp
 
 			app.UseRouting();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Account}/{action=Home}/{id?}");
 			});
 		}
 	}

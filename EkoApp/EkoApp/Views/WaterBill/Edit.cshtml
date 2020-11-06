@@ -1,0 +1,26 @@
+﻿@model EkoApp.ViewsModel.WaterBillToEdit
+
+<h4 class="text-center text-white">Edit Post</h4>
+<hr />
+
+<div class="col-12 border pt-3 bg-white">
+    <form asp-controller="WaterBill" asp-action="Update" asp-route-billId="@Model.Id.ToString()" method="post" class="form-group col-12">
+        <input type="hidden" asp-for="@Model.Id" />
+        <div class="input-group">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <textarea class="form-control" type="text" asp-for="@Model.Price" rows="1" style="height:3em;" id="text"></textarea>
+
+            <span asp-validation-for="@Model.Volume" class="text-danger"></span>
+
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-save"></i></button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+<div>
+    <a asp-controller="Profile" asp-action="Index" class="text-white float-right mt-2">Back to profile</a>
+</div>
