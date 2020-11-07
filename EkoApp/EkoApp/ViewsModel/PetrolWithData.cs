@@ -12,6 +12,7 @@ namespace EkoApp.ViewsModel
 			public float Distance { get; set; }
 			public double TravelCost { get; set; }
 			public double RealPricePerLiter { get; set; }
+			public Tuple<string, string> Coords { get; set; }
 		};
 	
 }

@@ -1,29 +1,66 @@
 ﻿@model EkoApp.ViewsModel.LocalisationModel
-
-    <div id="kk">
-        <a class="btn btn-danger" id="ka">"Wyswietl stacje"</a>
+    <div class="col-12 p-3">
+        <div id="kk" style="background-color:white;margin-top:5%" class="col-4 p-3 offset-3 rounded">
+            <div class="form-group row" style="">
+                <div class="col-3 text-center">
+                    <label>Ile litrów chcesz zatankować?</label>
+                </div>
+                <div class="col-6">
+                    <input name="Volume" onChange="onInput();" type="text" id="inpta" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3 text-center">
+                    <label>Podaj średnie spalanie:</label>
+                </div>
+                <div class="col-6">
+                    <input name="FuelConsumption" onChange="onInputFuel();" type="text" id="inpta2" />
+                </div>
+            </div>
+            <div class="col-12 offset-3">
+                <a class="btn btn-light" id="ka" style="background-color:aquamarine">Wyswietl stacje</a>
+            </div>
+        </div>
     </div>
-<script type="text/javascript">
-    getLocation();
-    var casa;
-    var esa;
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            console.log("Geolocation is not supported by this browser.");
+
+
+    <script type="text/javascript">
+        getLocation();
+        var link;
+        var vol;
+        var fuel;
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+            }
         }
-    }
 
-    function showPosition(position) {
-        var link1 = "/PetrolStation/ShowNearest?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude;
-        console.log(link1);
+        function showPosition(position) {
+            link = "/PetrolStation/ShowNearest?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude + "&fuelVolume=";
+        }
 
-        var anch = document.getElementById('ka');
-        anch.href = link1;
-    }
-    function addlink() {
-        
-    }
-</script>
-<button id="kk" ></button>
+        function onInput() {
+            var inpt = document.getElementById('inpta');
+            vol = inpt.value;
+
+            if (fuel != null) {
+                link2 = link + inpt.value + "&fuelConsumption=" + fuel;
+                var anch = document.getElementById('ka');
+                anch.href = link2;
+            }
+        }
+
+        function onInputFuel() {
+            var inpt = document.getElementById('inpta2');
+            fuel = inpt.value;
+
+            if (vol != null) {
+                link2 = link + vol + "&fuelConsumption=" + fuel;
+                var anch = document.getElementById('ka');
+                anch.href = link2;
+            }
+        }
+    </script>
+    <button id="kk"></button>

@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace EkoApp.Services
@@ -107,10 +106,17 @@ namespace EkoApp.Services
             using (var response = await client.SendAsync(request))
             {
                 response.EnsureSuccessStatusCode();
+
                 string body = await response.Content.ReadAsStringAsync();
-                string[] delimeterWords = { "\"city\":\"", "\",\"suburb\"" };
-                string[] test = body.Split(delimeterWords, StringSplitOptions.None);
-                return test[1];
+
+                var data = (JObject)JsonConvert.DeserializeObject(body);
+
+                var features = data["features"];
+                var deepdown = features[0];
+                var props = deepdown["properties"];
+                var city = props["city"];
+
+                return city.ToString();
             }
         }
         public static async Task<float> GetDistance(string clientLat, string clientLong, string petrolLat, string petrolLong)
@@ -127,13 +133,14 @@ namespace EkoApp.Services
 
             using (var response = await client.SendAsync(request))
             {
-                string[] delimeterDistance =
-                    {
-                    "\"distance\":", ",\"duration\""
-                    };
                 string body = await response.Content.ReadAsStringAsync();
-                string[] distTB = body.Split(delimeterDistance, StringSplitOptions.None);
-                return float.Parse(distTB[1], CultureInfo.InvariantCulture.NumberFormat);
+                var data = (JObject)JsonConvert.DeserializeObject(body);
+                var features = data["features"];
+                var deepdown = features[0];
+                var props = deepdown["properties"];
+                var summary = props["summary"];
+                var distance = summary["distance"].ToString();
+                return float.Parse(distance);
             }
         }
         public static async Task<Tuple<string, string>> GeoCode(string street)
@@ -151,25 +158,22 @@ namespace EkoApp.Services
             };
             using (var response = await client.SendAsync(request))
             {
-                response.EnsureSuccessStatusCode();
                 string body = await response.Content.ReadAsStringAsync();
-            //    string[] diameterLon =
-            //    {
-            //    "\"lon\":", ",\"lat\""
-            //};
-            //    string[] lonTB = body.Split(diameterLon, StringSplitOptions.None);
-            //    string lon = lonTB[1];
 
-                string[] diameterLat =
-                {
-               "coordinates\":[", "]}"
-            };
-                string[] latTB = body.Split(diameterLat, StringSplitOptions.None);
-                var coord = latTB[1].Split(",");
+                var data = (JObject)JsonConvert.DeserializeObject(body);
 
-                string lat = latTB[1];
+                var features = data["features"];
 
-                return new Tuple<string, string>(coord[0], coord[1]);
+                var deepdown = features[0];
+
+                var props = deepdown["properties"];
+
+                var longtitude = props["lon"].ToString();
+                var longToReturn = longtitude.Replace(',', '.');
+                var lattitude = props["lat"].ToString();
+                var lattToReturn = lattitude.Replace(',', '.');
+
+                return new Tuple<string, string>(longToReturn, lattToReturn);
             }
         }
     }

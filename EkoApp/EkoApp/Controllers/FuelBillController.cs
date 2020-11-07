@@ -118,7 +118,7 @@ namespace EkoApp.Controllers
 			var id = Guid.Parse(billId);
 			if (id != Guid.Empty)
 			{
-				var billToReturn = _appDbContext.TicketBills.FirstOrDefault(x => x.Id == id);
+				var billToReturn = _appDbContext.FuelBills.FirstOrDefault(x => x.Id == id);
 				return View(billToReturn);
 			}
 			else

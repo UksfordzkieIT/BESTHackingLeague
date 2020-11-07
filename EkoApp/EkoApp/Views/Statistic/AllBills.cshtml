@@ -3,34 +3,123 @@
 @{
     ViewData["Title"] = "All bills";
 }
-
-<div class="col-12 border  p-3 mt-3 bg-white">
-    <form>
+<div class="col-12 p-3">
+    <form style="margin-top:5%" class=" bg-white pl-2">
+        <div class="col-12 text-center pt-2"><h6 style="font-size:20px">Rachunek za paliwo</h6></div>
         @{
-            foreach (var bill in Model.FuelBills)
-            {
-                <div class="text-dark mb-2">
-                    <a class="text-dark" asp-controller="FuelBill" asp-action="Get" asp-route-billId="@bill.Id">Fuel Bill | Date: @bill.DateTime | Price per litr: @bill.PricePerLitr | Total price: @bill.TotalPrice | Volume: @bill.Volume</a>
-                    <a class="text-dark" asp-controller="FuelBill" asp-action="Edit" asp-route-billId="@bill.Id" asp-route-billIddd="@bill.Id"><i class="fas fa-edit fa-align-center"></i></a>
-                    <a class="text-dark" asp-controller="FuelBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
-                </div>
-            }
-            foreach (var bill in Model.WaterBills)
-            {
-                <div class="text-dark mb-2">
-                    <a class="text-dark" asp-controller="WaterBill" asp-action="Get" asp-route-billId="@bill.Id">Water Bill | Date: @bill.DateTime | Price: @bill.Price | Volume: @bill.Volume </a>
-                    <a class="text-dark" asp-controller="WaterBill" asp-action="Edit" asp-route-billId="@bill.Id"><i class="fas fa-edit fa-align-center"></i></a>
-                    <a class="text-dark" asp-controller="WaterBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
-                </div>
-            }
-            foreach (var bill in Model.TicketBills)
-            {
-                <div class="text-dark mb-2">
-                    <a class="text-dark" asp-controller="TicketBill" asp-action="Get" asp-route-billId="@bill.Id">Ticket Bill | Date: @bill.DateTime | Price: @bill.Price</a>
-                    <a class="text-dark" asp-controller="TicketBill" asp-action="Edit" asp-route-billId="@bill.Id"><i class="fas fa-edit fa-align-center"></i></a>
-                    <a class="text-dark" asp-controller="TicketBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
-                </div>
-            }
+            <table class="table mt-0">
+                <thead style="background-color: grey">
+                    <tr >
+                        <th>Data:</th>
+                        <th>Cena za litr:</th>
+                        <th>Całkowity koszt:</th>
+                        <th>Objętość:</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>@{ 
+                    int licznik = 0;
+                    @foreach (var bill in Model.FuelBills)
+                    {
+                        string x;
+                        if (licznik % 2 == 0)
+                        {
+                            x = "background-color: greenyellow";
+                        }
+                        else
+                        {
+                            x = "background-color: white";
+                        }
+                        licznik++;
+                        <tr style="@x">
+
+                            <td><a class="text-dark" asp-controller="FuelBill" asp-action="Edit" asp-route-billId="@bill.Id">@bill.DateTime</a></td>
+                            <td>@bill.PricePerLitr</td>
+                            <td>@bill.TotalPrice</td>
+                            <td>@bill.Volume</td>
+                            <td>
+                                <a class="text-dark" asp-controller="FuelBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    }}
+                </tbody>
+            </table>
+        }
+        <div class="col-12 text-center"><h6 style="font-size:20px">Rachunek za wodę</h6></div>
+        @{
+            <table class="table mt-0">
+                <thead style="background-color: grey">
+                    <tr>
+                        <th>Data:</th>
+                        <th>Całkowity koszt:</th>
+                        <th>Objętość:</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int licznik1 = 0;
+                        @foreach (var bill in Model.WaterBills)
+                        {
+                            string x;
+                            if (licznik1 % 2 == 0)
+                            {
+                                x = "background-color: greenyellow";
+                            }
+                            else
+                            {
+                                x = "background-color: white";
+                            }
+                            licznik++;
+                            <tr>
+
+                                <td><a class="text-dark" asp-controller="WaterBill" asp-action="Edit" asp-route-billId="@bill.Id">@bill.DateTime</a></td>
+                                <td>@bill.Price</td>
+                                <td>@bill.Volume</td>
+                                <td>
+                                    <a class="text-dark" asp-controller="WaterBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }}
+                    </tbody>
+            </table>
+        }
+        <div class="col-12 text-center"><h6 style="font-size:20px">Rachunek za bilet</h6></div>
+        @{
+            <table class="table mt-0">
+                <thead style="background-color: grey">
+                    <tr>
+                        <th>Data:</th>
+                        <th>Całkowity koszt:</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int licznik2 = 0;
+                        @foreach (var bill in Model.TicketBills)
+                        {
+                            string x;
+                            if (licznik2 % 2 == 0)
+                            {
+                                x = "background-color: greenyellow";
+                            }
+                            else
+                            {
+                                x = "background-color: white";
+                            }
+                            licznik++;
+                            <tr>
+
+                                <td><a class="text-dark" asp-controller="TicketBill" asp-action="Edit" asp-route-billId="@bill.Id">@bill.DateTime</a></td>
+                                <td>@bill.Price</td>
+                                <td>
+                                    <a class="text-dark" asp-controller="TicketBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }}
+                    </tbody>
+            </table>
         }
     </form>
 </div>

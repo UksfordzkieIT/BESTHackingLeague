@@ -1,13 +1,33 @@
 ﻿@model List<EkoApp.ViewsModel.PetrolWithData>
 
-@foreach (var petrol in @Model)
-{
-    <div class="col-12 border  p-3 mt-3 bg-white">
-        <form>
 
-                    <div class="text-dark mb-2">
-                       Nazwa stacji: @petrol.Petrol.Name | Odległość do stacji: @(petrol.Distance/1000) km | Adres stacji: @petrol.Petrol.Street | Rzeczywista cena za lirt: @petrol.RealPricePerLiter zł | Cena za litr: @petrol.Petrol.Price
-                    </div>
-                </form>
-               </div>
-}
+<div class="col-12 border p-3 bg-white mt-0">
+
+    <table class="table mt-0">
+        <thead>
+            <tr>
+                <th>Nazwa stacji:</th>
+                <th>Odległość do stacji:</th>
+                <th>Adres stacji:</th>
+                <th>Rzeczywista cena za lirt:</th>
+                <th>Cena za litr:</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var petrol in @Model)
+            {
+
+                var link = "https://www.google.com/maps/dir/?api=1&origin=" + ViewData["latitude"] + ',' + ViewData["longitude"] + "&destination=" + petrol.Coords.Item2 + ',' + petrol.Coords.Item1 + "&travelmode=driving";
+         
+                <tr>
+                    <td><a href="@link" target="_blank">@petrol.Petrol.Name</a></td>
+                    <td>@petrol.Distance.ToString("0.00") km</td>
+                    <td>@petrol.Petrol.Street</td>
+                    <td>@petrol.RealPricePerLiter.ToString("0.00")zł</td>
+                    <td>@petrol.Petrol.Price</td>
+                </tr>        
+            }
+        </tbody>
+    </table>
+</div>
+
