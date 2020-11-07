@@ -38,7 +38,7 @@ namespace EkoApp.Controllers
 				ViewData["latitude"] = latitude;
 				ViewData["longitude"] = longitude;
 				List<PetrolWithData> petrols = new List<PetrolWithData>();
-
+				
 				var neartestPetrols = GeolocService.GetNearestPetrols(TlumaczNazwe(nazwaMiastaEng), "e95");
 
 				var fuelVol = double.Parse(fuelVolume);
@@ -57,7 +57,8 @@ namespace EkoApp.Controllers
 						}
 						nazwa += "%20" + nazwasplit[i];
 					}
-					nazwa += ',' + nazwaMiastaEng;
+					nazwa += ',' + TlumaczNazwe(nazwaMiastaEng);
+	
 					var petrolCoord = await GeolocService.GeoCode(nazwa);
 					if (petrolCoord != null)
 					{
