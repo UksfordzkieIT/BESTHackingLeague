@@ -2,6 +2,8 @@
 
 This web app provides automatic gas station prices comparison based on users location and can help to navigate to the most economical station, as well as tools for water, public transportation and fuel bills management.
 
+Gas prices and street addresses of the stations are requested from [CenaPaliw.pl](https://www.cenapaliw.pl/ "cenapaliw.pl").
+
 We used API's to gain information about user's location, distance to gas station and to show route from user to chosen station.
 
 **API's:**
