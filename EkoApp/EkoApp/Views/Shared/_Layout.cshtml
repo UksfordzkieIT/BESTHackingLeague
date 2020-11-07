@@ -9,35 +9,36 @@
     <script src="https://kit.fontawesome.com/35fbecad1a.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-success border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-success border-bottom box-shadow">
             <div class="container">
 
-                <div class="navbar-collapse collapse d-flex justify-content-center d-flex">
+                <div class="navbar-collapse collapse d-flex justify-content-center">
                     <ul class="navbar-nav">
-                        <li class="nav-item flex-fill">
+                        <li class="nav-item d-flex justify-content-between mx-3">
                             <h6>
-                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Calendar" asp-action="Index"><i class="far fa-calendar-alt"></i></a>
+                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Calendar" asp-action="Index"><i class="far fa-calendar-alt fa-3x"></i></a>
                             </h6>
                         </li>
-                        <li class="nav-item flex-fill">
+                        <li class="nav-item d-flex justify-content-between mx-3">
                             <h6>
-                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Summary" asp-action="Index"><i class="fas fa-chart-line"></i></a>
+                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Summary" asp-action="Index"><i class="fas fa-chart-line fa-3x"></i></a>
                             </h6>
                         </li>
-                        <li class="nav-item flex-fill">
+                        <li class="nav-item d-flex justify-content-between mx-3">
                             <h6>
-                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Statistic" asp-action="AllBills"><i class="fas fa-wallet"></i></a>
+                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Statistic" asp-action="AllBills"><i class="fas fa-wallet fa-3x"></i></a>
                             </h6>
                         </li>
-                        <li class="nav-item flex-fill">
+                        <li class="nav-ite d-flex justify-content-between mx-3">
                             <h6>
-                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Account" asp-action="Index"><i class="fas fa-user"></i></a>
+                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Account" asp-action="Index"><i class="fas fa-user fa-3x"></i></a>
                             </h6>
                         </li>
-                        <li class="nav-item flex-fill">
+                        <li class="nav-item d-flex justify-content-between mx-3">
                             <h6>
-                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Statistic" asp-action="Index"><i class="fas fa-star"></i></a>
+                                <a class="nav-link text-white text-center" asp-area="" asp-controller="Statistic" asp-action="Index"><i class="fas fa-star fa-3x"></i></a>
                             </h6>
                         </li>
 
@@ -45,18 +46,32 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
+    </header>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url('/Image/background.jpg');
+            /* Full height */
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <div class="bg">
         <div class="container">
-            &copy; 2020 - EkoApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

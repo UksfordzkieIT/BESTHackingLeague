@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/35fbecad1a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url('/Image/background.jpg');
+            /* Full height */
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <div class="bg">
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

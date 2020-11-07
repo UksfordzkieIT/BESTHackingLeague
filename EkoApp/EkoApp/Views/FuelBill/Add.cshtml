@@ -4,17 +4,21 @@
     ViewData["Title"] = "Fuel Bill";
 }
 
-<h1 class="col-12 text-center">Add water bill</h1>
+<div class="col-12 justify-content-center row">
+    <h1 class="col-3 text-center rounded " style="background-color:white; margin-top:20%">
+        Add fuel bill
+    </h1>
+</div>
 
 <hr />
 <div class="row">
-    <div class="col-12 border p-3 mt-5">
+    <div class="col-12 p-3 mt-5">
         <form asp-action="Add" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="PricePerLitr" class="control-label"></label>
+                    <label asp-for="PricePerLitr"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="PricePerLitr" class="form-control" value="0.00" />
@@ -24,7 +28,7 @@
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="TotalPrice" class="control-label"></label>
+                    <label asp-for="TotalPrice"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="TotalPrice" class="form-control" value="0.00" />
@@ -34,7 +38,7 @@
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="Volume" class="control-label"></label>
+                    <label asp-for="Volume"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="Volume" class="form-control" value="0.00" />

@@ -1,0 +1,29 @@
+﻿@model EkoApp.ViewsModel.LocalisationModel
+
+    <div id="kk">
+        <a class="btn btn-danger" id="ka">"Wyswietl stacje"</a>
+    </div>
+<script type="text/javascript">
+    getLocation();
+    var casa;
+    var esa;
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        var link1 = "/PetrolStation/ShowNearest?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude;
+        console.log(link1);
+
+        var anch = document.getElementById('ka');
+        anch.href = link1;
+    }
+    function addlink() {
+        
+    }
+</script>
+<button id="kk" ></button>

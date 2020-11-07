@@ -390,3 +390,5 @@ C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreap
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\WaterBill\Get.cshtml.g.cs
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\FuelBill\Get.cshtml.g.cs
 C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\TicketBill\Get.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_NoSignInLayout.cshtml.g.cs
+C:\Users\lenovo\source\repos\BESTHackingLeague\EkoApp\EkoApp\obj\Debug\netcoreapp3.1\Razor\Views\PetrolStation\Index.cshtml.g.cs

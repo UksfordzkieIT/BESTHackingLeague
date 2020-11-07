@@ -1,21 +1,26 @@
 ﻿@model LoginViewModel
 
 @{
+    Layout = "_NoSignInLayout";
     ViewData["Title"] = "Sign In";
 }
 
-<h1 class="col-12 text-center">Sign In</h1>
+<div class="col-12 justify-content-center">
+    <h1 class="offset-5 col-2 text-center rounded " style="background-color:white">
+        Sign In
+    </h1>
+    </div>
 
 <hr />
 <div class="row">
-    <div class="col-12 border p-3 mt-5">
+    <div class="col-12 p-3 mt-5">
         <form asp-action="Login" method="post">
             <input type="hidden" asp-for="ReturnUrl" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="Login" class="control-label"></label>
+                    <label asp-for="Login"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="Login" class="form-control" />
@@ -25,7 +30,7 @@
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="Password" class="control-label"></label>
+                    <label asp-for="Password"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="Password" class="form-control" />

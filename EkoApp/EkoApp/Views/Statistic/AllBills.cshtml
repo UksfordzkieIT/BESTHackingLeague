@@ -11,7 +11,7 @@
             {
                 <div class="text-dark mb-2">
                     <a class="text-dark" asp-controller="FuelBill" asp-action="Get" asp-route-billId="@bill.Id">Fuel Bill | Date: @bill.DateTime | Price per litr: @bill.PricePerLitr | Total price: @bill.TotalPrice | Volume: @bill.Volume</a>
-                    <a class="text-dark" asp-controller="FuelBill" asp-action="Edit" asp-route-billId="@bill.Id"><i class="fas fa-edit fa-align-center"></i></a>
+                    <a class="text-dark" asp-controller="FuelBill" asp-action="Edit" asp-route-billId="@bill.Id" asp-route-billIddd="@bill.Id"><i class="fas fa-edit fa-align-center"></i></a>
                     <a class="text-dark" asp-controller="FuelBill" asp-action="Delete" asp-route-billId="@bill.Id"> <i class="fas fa-trash-alt"></i></a>
                 </div>
             }

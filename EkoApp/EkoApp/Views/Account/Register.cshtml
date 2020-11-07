@@ -1,21 +1,26 @@
 ﻿@model RegisterViewModel
 
 @{
+    Layout = "_NoSignInLayout";
     ViewData["Title"] = "Register";
 }
 
-<h1 class="col-12 text-center">Register</h1>
+<div class="col-12 justify-content-center">
+    <h1 class="offset-5 col-2 text-center rounded " style="background-color:white">
+        Register
+    </h1>
+</div>
 
 <hr />
 <div class="row">
-    <div class="col-12 border p-3 mt-5">
+    <div class="col-12 p-3 mt-5">
         <form asp-action="Register" method="post">
             <input type="hidden" asp-for="ReturnUrl" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="Login" class="control-label"></label>
+                    <label asp-for="Login" class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="Login" class="form-control" />
@@ -25,7 +30,7 @@
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="FirstName" class="control-label"></label>
+                    <label asp-for="FirstName" class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="FirstName" class="form-control" />
@@ -35,7 +40,7 @@
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="LastName" class="control-label"></label>
+                    <label asp-for="LastName" class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="LastName" class="form-control" />
@@ -45,7 +50,7 @@
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="Email" class="control-label"></label>
+                    <label asp-for="Email" class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input asp-for="Email" class="form-control" />
@@ -55,7 +60,7 @@
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="Password" class="control-label"></label>
+                    <label asp-for="Password" class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input type="password" asp-for="Password" class="form-control" />
@@ -65,7 +70,7 @@
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="ConfirmPassword" class="control-label"></label>
+                    <label asp-for="ConfirmPassword" class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
                     <input type="password" asp-for="ConfirmPassword" class="form-control" />

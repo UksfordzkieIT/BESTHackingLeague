@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using EkoApp.Data;
 using EkoApp.ViewsModel;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace EkoApp.Controllers
 {
@@ -23,11 +25,13 @@ namespace EkoApp.Controllers
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly string _userId;
 		private readonly AppDbContext _appDbContext;
+		private readonly IConfiguration _config;
 
 		public AccountController(SignInManager<UserDb> signInManager,
 			UserManager<UserDb> userManager,
 			IHttpContextAccessor httpContextAccessor,
-			AppDbContext appDbContext)
+			AppDbContext appDbContext,
+			IConfiguration config)
 		{
 			_signInManager = signInManager;
 			_userManager = userManager;
@@ -37,6 +41,7 @@ namespace EkoApp.Controllers
 				_userId = httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
 			}
 			_appDbContext = appDbContext;
+			_config = config;
 		}
 		[HttpGet]
 		[Authorize]
@@ -100,6 +105,16 @@ namespace EkoApp.Controllers
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+		[HttpGet("/Image/{image}")]
+		public IActionResult Image(string image)
+		{
+			string mime = image.Substring(image.LastIndexOf('.') + 1);
+
+			var _imagePath = _config["Path:Images"];
+			var x =  new FileStream(Path.Combine(_imagePath, image), FileMode.Open, FileAccess.Read);
+
+			return new FileStreamResult(x, $"images/{mime}");	
 		}
 
 	}
