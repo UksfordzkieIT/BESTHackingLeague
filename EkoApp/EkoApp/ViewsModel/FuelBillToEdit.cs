@@ -10,9 +10,9 @@ namespace EkoApp.ViewsModel
 	{
 		public Guid Id { get; set; }
 		[DisplayName("Całkowity koszt")]
-		public float TotalPrice { get; set; }
+		public string TotalPrice { get; set; }
 		[DisplayName("Objętość")]
-		public float Volume { get; set; }
+		public string Volume { get; set; }
 		[DisplayName("Cena za litr")]
 		public float PricePerLitr { get; set; }
 	}

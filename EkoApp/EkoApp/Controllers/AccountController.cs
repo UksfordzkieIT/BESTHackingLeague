@@ -95,7 +95,8 @@ namespace EkoApp.Controllers
 		}
 		public IActionResult LogOut()
 		{
-			return View();
+			_signInManager.SignOutAsync();
+			return RedirectToAction("Login");
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

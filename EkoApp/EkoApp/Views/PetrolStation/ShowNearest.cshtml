@@ -1,33 +1,34 @@
 ﻿@model List<EkoApp.ViewsModel.PetrolWithData>
 
 
-<div class="col-12 border p-3 bg-white mt-0">
-
-    <table class="table mt-0">
-        <thead>
-            <tr>
-                <th>Nazwa stacji:</th>
-                <th>Odległość do stacji:</th>
-                <th>Adres stacji:</th>
-                <th>Rzeczywista cena za lirt:</th>
-                <th>Cena za litr:</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var petrol in @Model)
-            {
-
-                var link = "https://www.google.com/maps/dir/?api=1&origin=" + ViewData["latitude"] + ',' + ViewData["longitude"] + "&destination=" + petrol.Coords.Item2 + ',' + petrol.Coords.Item1 + "&travelmode=driving";
-         
+<div class="col-12 p-3 mt-0">
+    <div class="bg-white" style="margin-top:5%">
+        <table class="table mt-0">
+            <thead>
                 <tr>
-                    <td><a href="@link" target="_blank">@petrol.Petrol.Name</a></td>
-                    <td>@petrol.Distance.ToString("0.00") km</td>
-                    <td>@petrol.Petrol.Street</td>
-                    <td>@petrol.RealPricePerLiter.ToString("0.00")zł</td>
-                    <td>@petrol.Petrol.Price</td>
-                </tr>        
-            }
-        </tbody>
-    </table>
-</div>
+                    <th>Nazwa stacji:</th>
+                    <th>Odległość do stacji:</th>
+                    <th>Adres stacji:</th>
+                    <th>Rzeczywista cena za lirt:</th>
+                    <th>Cena za litr:</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var petrol in @Model)
+                {
 
+                    var link = "https://www.google.com/maps/dir/?api=1&origin=" + ViewData["latitude"] + ',' + ViewData["longitude"] + "&destination=" + petrol.Coords.Item2 + ',' + petrol.Coords.Item1 + "&travelmode=driving";
+
+                    <tr>
+                        <td><a href="@link" target="_blank">@petrol.Petrol.Name</a></td>
+                        <td>@petrol.Distance.ToString("0.00") km</td>
+                        <td>@petrol.Petrol.Street</td>
+                        <td>@petrol.RealPricePerLiter.ToString("0.00")zł</td>
+                        <td>@petrol.Petrol.Price</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

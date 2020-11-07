@@ -80,7 +80,7 @@ namespace EkoApp.Controllers
 			{
 				return NotFound();
 			}
-			return View(new WaterBillToEdit { Id = bill.Id, Price = bill.Price, Volume = bill.Volume });
+			return View(new WaterBillToEdit { Id = bill.Id, Price = bill.Price.ToString(), Volume = bill.Volume.ToString() });
 		}
 		//[HttpPost("Update/{billId}")]
 		[ValidateAntiForgeryToken]
@@ -90,11 +90,17 @@ namespace EkoApp.Controllers
 			{
 				return NotFound();
 			}
+			try { 
 			var currBill = _appDbContext.WaterBills.FirstOrDefault(x => x.Id == waterBillToEdit.Id);
-			currBill.Volume = waterBillToEdit.Volume;
-			currBill.Price = waterBillToEdit.Price;
+			currBill.Volume = float.Parse(waterBillToEdit.Volume);
+			currBill.Price = float.Parse(waterBillToEdit.Price);
 			_appDbContext.WaterBills.Update(currBill);
 			_appDbContext.SaveChanges();
+			}
+			catch(Exception ex)
+			{
+
+			}
 			return RedirectToAction("AllBills", "Statistic");
 		}
 

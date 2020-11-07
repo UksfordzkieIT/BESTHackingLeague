@@ -3,11 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using EkoApp.Services;
 using EkoApp.ViewsModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EkoApp.Controllers
 {
-	
+	[Authorize]
 	public class PetrolStationController : Controller
 	{
 		private string TlumaczNazwe(string nazwa)

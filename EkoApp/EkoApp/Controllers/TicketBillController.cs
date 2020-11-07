@@ -81,7 +81,7 @@ namespace EkoApp.Controllers
 			{
 				return NotFound();
 			}
-			return View(new TicketBillToEdit { Id = bill.Id, Price = bill.Price });
+			return View(new TicketBillToEdit { Id = bill.Id, Price = bill.Price.ToString() });
 		}
 		//[HttpPost("Update/{billId}")]
 		[ValidateAntiForgeryToken]
@@ -91,10 +91,16 @@ namespace EkoApp.Controllers
 			{
 				return NotFound();
 			}
+			try { 
 			var currBill = _appDbContext.TicketBills.FirstOrDefault(x => x.Id == ticketBillToEdit.Id);
-			currBill.Price = ticketBillToEdit.Price;
+			currBill.Price = float.Parse(ticketBillToEdit.Price);
 			_appDbContext.TicketBills.Update(currBill);
 			_appDbContext.SaveChanges();
+			}
+			catch(Exception ex)
+			{
+
+			}
 			return RedirectToAction("AllBills", "Statistic");
 		}
 

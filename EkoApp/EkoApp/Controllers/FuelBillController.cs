@@ -85,8 +85,8 @@ namespace EkoApp.Controllers
 			return View(new FuelBillToEdit { 
 				Id = bill.Id,
 				PricePerLitr = bill.PricePerLitr,
-				TotalPrice = bill.TotalPrice,
-				Volume = bill.Volume
+				TotalPrice = bill.TotalPrice.ToString(),
+				Volume = bill.Volume.ToString()
 			});
 		}
 		//[HttpPost("Update/{billId}")]
@@ -97,12 +97,19 @@ namespace EkoApp.Controllers
 			{
 				return NotFound();
 			}
-			var currBill = _appDbContext.FuelBills.FirstOrDefault(x => x.Id == fuelBillToEdit.Id);
-			currBill.PricePerLitr = fuelBillToEdit.PricePerLitr;
-			currBill.TotalPrice = fuelBillToEdit.TotalPrice;
-			currBill.Volume = fuelBillToEdit.Volume;
-			_appDbContext.FuelBills.Update(currBill);
-			_appDbContext.SaveChanges();
+			try
+			{
+				var currBill = _appDbContext.FuelBills.FirstOrDefault(x => x.Id == fuelBillToEdit.Id);
+				currBill.PricePerLitr = fuelBillToEdit.PricePerLitr;
+				currBill.TotalPrice = float.Parse(fuelBillToEdit.TotalPrice);
+				currBill.Volume = float.Parse(fuelBillToEdit.Volume);
+				_appDbContext.FuelBills.Update(currBill);
+				_appDbContext.SaveChanges();
+			}
+			catch(Exception ex)
+			{
+
+			}
 			return RedirectToAction("AllBills", "Statistic");
 		}
 
