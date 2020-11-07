@@ -2,7 +2,6 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -76,13 +75,16 @@ namespace EkoApp.Services
                 string[] tempName = i.Split(delimeterName, StringSplitOptions.None);
                 string[] tempStreet = i.Split(delimeterStreet, StringSplitOptions.None);
                 string[] tempPrice = i.Split(delimeterPrice, StringSplitOptions.None);
-                if(tempName.Length>=2 && tempPrice.Length >= 2 && tempStreet.Length >= 2 && tempName[1]!= "Inne")
-                stations.Add(new Petrol
+                if (tempName.Length >= 2 && tempPrice.Length >= 2 && tempStreet.Length >= 2 && tempName[1] != "Inne")
                 {
-                    Name = tempName[1],
-                    Street = tempStreet[1].Split('/')[0],
-                    Price = tempPrice[1]
-                });
+                    var street = tempStreet[1].Split('/')[0];
+                    stations.Add(new Petrol
+                    {
+                        Name = tempName[1],
+                        Street = street.Split('(')[0],
+                        Price = tempPrice[1]
+                    });
+                }
                 k++;
                 if (k == 10)
                     break;
@@ -105,19 +107,22 @@ namespace EkoApp.Services
             };
             using (var response = await client.SendAsync(request))
             {
-                response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
 
-                string body = await response.Content.ReadAsStringAsync();
+                    string body = await response.Content.ReadAsStringAsync();
 
-                var data = (JObject)JsonConvert.DeserializeObject(body);
+                    var data = (JObject)JsonConvert.DeserializeObject(body);
 
-                var features = data["features"];
-                var deepdown = features[0];
-                var props = deepdown["properties"];
-                var city = props["city"];
+                    var features = data["features"];
+                    var deepdown = features[0];
+                    var props = deepdown["properties"];
+                    var city = props["city"];
 
-                return city.ToString();
+                    return city.ToString();
+                }
             }
+            return null;
         }
         public static async Task<float> GetDistance(string clientLat, string clientLong, string petrolLat, string petrolLong)
         {
@@ -133,14 +138,18 @@ namespace EkoApp.Services
 
             using (var response = await client.SendAsync(request))
             {
-                string body = await response.Content.ReadAsStringAsync();
-                var data = (JObject)JsonConvert.DeserializeObject(body);
-                var features = data["features"];
-                var deepdown = features[0];
-                var props = deepdown["properties"];
-                var summary = props["summary"];
-                var distance = summary["distance"].ToString();
-                return float.Parse(distance);
+                if (response.IsSuccessStatusCode)
+                {
+                    string body = await response.Content.ReadAsStringAsync();
+                    var data = (JObject)JsonConvert.DeserializeObject(body);
+                    var features = data["features"];
+                    var deepdown = features[0];
+                    var props = deepdown["properties"];
+                    var summary = props["summary"];
+                    var distance = summary["distance"].ToString();
+                    return float.Parse(distance);
+                }
+                return -1;
             }
         }
         public static async Task<Tuple<string, string>> GeoCode(string street)
@@ -158,22 +167,21 @@ namespace EkoApp.Services
             };
             using (var response = await client.SendAsync(request))
             {
-                string body = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    string body = await response.Content.ReadAsStringAsync();
+                    var data = (JObject)JsonConvert.DeserializeObject(body);
+                    var features = data["features"];
+                    var deepdown = features[0];
+                    var props = deepdown["properties"];
+                    var longtitude = props["lon"].ToString();
+                    var longToReturn = longtitude.Replace(',', '.');
+                    var lattitude = props["lat"].ToString();
+                    var lattToReturn = lattitude.Replace(',', '.');
 
-                var data = (JObject)JsonConvert.DeserializeObject(body);
-
-                var features = data["features"];
-
-                var deepdown = features[0];
-
-                var props = deepdown["properties"];
-
-                var longtitude = props["lon"].ToString();
-                var longToReturn = longtitude.Replace(',', '.');
-                var lattitude = props["lat"].ToString();
-                var lattToReturn = lattitude.Replace(',', '.');
-
-                return new Tuple<string, string>(longToReturn, lattToReturn);
+                    return new Tuple<string, string>(longToReturn, lattToReturn);
+                }
+                return null;
             }
         }
     }
