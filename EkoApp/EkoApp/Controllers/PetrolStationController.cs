@@ -10,6 +10,21 @@ namespace EkoApp.Controllers
 	
 	public class PetrolStationController : Controller
 	{
+		private string TlumaczNazwe(string nazwa)
+		{
+			if(nazwa.ToLower() == "warsaw")
+			{
+				return "warszawa";
+			}
+			else if (nazwa.ToLower() == "cracow")
+			{
+				return "krakow";
+			}
+			else
+			{
+				return nazwa.ToLower();
+			}
+		}
 		
 		public IActionResult Index()
 		{
@@ -24,7 +39,7 @@ namespace EkoApp.Controllers
 				ViewData["longitude"] = longitude;
 				List<PetrolWithData> petrols = new List<PetrolWithData>();
 
-				var neartestPetrols = GeolocService.GetNearestPetrols("Warszawa", "e95");
+				var neartestPetrols = GeolocService.GetNearestPetrols(TlumaczNazwe(nazwaMiastaEng), "e95");
 
 				var fuelVol = double.Parse(fuelVolume);
 				double fuelConsum = double.Parse(fuelConsumption);
@@ -49,14 +64,18 @@ namespace EkoApp.Controllers
 						var dist = await GeolocService.GetDistance(latitude, longitude, petrolCoord.Item2, petrolCoord.Item1);
 						if (dist != -1)
 						{
-							petrols.Add(new PetrolWithData
+							var realPrice = (float.Parse(price[0]) * fuelVol) / (fuelVol - ((2 * dist) / 100000 * fuelConsum));
+							if (realPrice > 0)
 							{
-								Petrol = petr,
-								Distance = dist / 1000,
-								TravelCost = ((2 * dist) / 100 * fuelConsum) * float.Parse(price[0]),
-								RealPricePerLiter = (float.Parse(price[0]) * fuelVol) / (fuelVol - ((2 * dist) / 100000 * fuelConsum)),
-								Coords = petrolCoord
-							});
+								petrols.Add(new PetrolWithData
+								{
+									Petrol = petr,
+									Distance = dist / 1000,
+									TravelCost = ((2 * dist) / 100 * fuelConsum) * float.Parse(price[0]),
+									RealPricePerLiter = realPrice,
+									Coords = petrolCoord
+								});
+							}
 						}
 					}
 				}
