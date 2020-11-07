@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using EkoApp.Models;
 using Microsoft.AspNetCore.Identity;
 using EkoApp.Entities;
@@ -12,10 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using EkoApp.Data;
-using EkoApp.ViewsModel;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using EkoApp.Services;
 
 namespace EkoApp.Controllers
 {
@@ -64,7 +60,7 @@ namespace EkoApp.Controllers
 				if (result.Succeeded)
 				{
 					var x = User.Claims.FirstOrDefault(x => x.Type == "LastName");
-					return Redirect(loginViewModel.ReturnUrl);
+					return RedirectToAction(nameof(Home));
 				}
 			}
 			return View(new LoginViewModel { ReturnUrl = loginViewModel.ReturnUrl });

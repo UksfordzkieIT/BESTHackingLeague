@@ -10,6 +10,6 @@ namespace EkoApp.ViewsModel
 	{
 		public Guid Id { get; set; }
 		[DisplayName("Całkowity koszt")]
-		public decimal Price { get; set; }
+		public float Price { get; set; }
 	}
 }

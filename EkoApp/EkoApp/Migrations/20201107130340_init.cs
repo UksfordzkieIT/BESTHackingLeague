@@ -159,10 +159,10 @@ namespace EkoApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    TotalPrice = table.Column<decimal>(nullable: false),
+                    TotalPrice = table.Column<float>(nullable: false),
                     DateTime = table.Column<DateTime>(nullable: false),
-                    Volume = table.Column<decimal>(nullable: false),
-                    PricePerLitr = table.Column<decimal>(nullable: false),
+                    Volume = table.Column<float>(nullable: false),
+                    PricePerLitr = table.Column<float>(nullable: false),
                     UserDbId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -181,7 +181,7 @@ namespace EkoApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
+                    Price = table.Column<float>(nullable: false),
                     DateTime = table.Column<DateTime>(nullable: false),
                     UserDbId = table.Column<Guid>(nullable: false)
                 },
@@ -201,9 +201,9 @@ namespace EkoApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
+                    Price = table.Column<float>(nullable: false),
                     DateTime = table.Column<DateTime>(nullable: false),
-                    Volume = table.Column<decimal>(nullable: false),
+                    Volume = table.Column<float>(nullable: false),
                     UserDbId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>

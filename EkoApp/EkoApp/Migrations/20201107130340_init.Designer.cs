@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EkoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201106164947_init")]
+    [Migration("20201107130340_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,17 +102,17 @@ namespace EkoApp.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("PricePerLitr")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("PricePerLitr")
+                        .HasColumnType("real");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("TotalPrice")
+                        .HasColumnType("real");
 
                     b.Property<Guid>("UserDbId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Volume")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Volume")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -130,8 +130,8 @@ namespace EkoApp.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<Guid>("UserDbId")
                         .HasColumnType("uniqueidentifier");
@@ -152,14 +152,14 @@ namespace EkoApp.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<Guid>("UserDbId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Volume")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Volume")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
