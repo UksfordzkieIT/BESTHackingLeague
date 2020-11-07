@@ -15,6 +15,7 @@ using EkoApp.Data;
 using EkoApp.ViewsModel;
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using EkoApp.Services;
 
 namespace EkoApp.Controllers
 {
@@ -50,8 +51,9 @@ namespace EkoApp.Controllers
 			return View();
 		}
 		[HttpGet]
-		public IActionResult Login(string returnUrl)
+		public async Task<IActionResult> Login(string returnUrl)
 		{
+			//var resp = await GeolocService.GeoCode("chelmska%206%20warszawa");
 			return View(new LoginViewModel { ReturnUrl = returnUrl });
 		}
 		[HttpPost]

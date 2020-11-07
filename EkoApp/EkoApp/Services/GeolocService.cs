@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EkoApp.Services
@@ -26,28 +29,28 @@ namespace EkoApp.Services
             }
             return "";
         }
-        public static List<Petrol> GetNearestPetrols(string county, string city, string fuelType)
+        public static List<Petrol> GetNearestPetrols(string city, string fuelType)
         {
             var client = new WebClient();
-            Dictionary<string, string> countys = new Dictionary<string, string>();
-            countys.Add("Lower Silesian","dolno-slaskie");
-            countys.Add("Kuyavian-Pomeranian","kujawsko-pomorskie");
-            countys.Add("Lublin","lubelskie");
-            countys.Add("Lubusz","Lublin");
-            countys.Add("Łódź","lodzkie");
-            countys.Add("Lesser Poland","malopolskie");
-            countys.Add("Masovian","mazowieckie");
-            countys.Add("Opole","opolskie");
-            countys.Add("Subcarpathian","podkarpackie");
-            countys.Add("podlaskie","podlaskie");
-            countys.Add("Pomeranian","pomorskie");
-            countys.Add("Silesian","slaskie");
-            countys.Add("Świętokrzyskie","swietokrzyskie");
-            countys.Add("Warmian-Masurian","warminsko-mazurskie");
-            countys.Add("Greater Poland","wielkopolskie");
-            countys.Add("West Pomeranian", "zachodniopomorskie");
+            //Dictionary<string, string> countys = new Dictionary<string, string>();
+            //countys.Add("Lower Silesian","dolno-slaskie");
+            //countys.Add("Kuyavian-Pomeranian","kujawsko-pomorskie");
+            //countys.Add("Lublin","lubelskie");
+            //countys.Add("Lubusz","Lublin");
+            //countys.Add("Łódź","lodzkie");
+            //countys.Add("Lesser Poland","malopolskie");
+            //countys.Add("Masovian","mazowieckie");
+            //countys.Add("Opole","opolskie");
+            //countys.Add("Subcarpathian","podkarpackie");
+            //countys.Add("podlaskie","podlaskie");
+            //countys.Add("Pomeranian","pomorskie");
+            //countys.Add("Silesian","slaskie");
+            //countys.Add("Świętokrzyskie","swietokrzyskie");
+            //countys.Add("Warmian-Masurian","warminsko-mazurskie");
+            //countys.Add("Greater Poland","wielkopolskie");
+            //countys.Add("West Pomeranian", "zachodniopomorskie");
 
-            string text = client.DownloadString("https://cenapaliw.pl/stationer/" + "e95/" + countys[county] + '/' + "warszawa");
+            string text = client.DownloadString("https://cenapaliw.pl/stationer/" + fuelType + "/alla/"+ city);
             List<Petrol> stations = new List<Petrol>();
             string[] delimeterWords = {
                 "<tbody>", "</tbody>"
@@ -74,11 +77,11 @@ namespace EkoApp.Services
                 string[] tempName = i.Split(delimeterName, StringSplitOptions.None);
                 string[] tempStreet = i.Split(delimeterStreet, StringSplitOptions.None);
                 string[] tempPrice = i.Split(delimeterPrice, StringSplitOptions.None);
-                if(tempName.Length>=2 && tempPrice.Length >= 2 && tempStreet.Length >= 2)
+                if(tempName.Length>=2 && tempPrice.Length >= 2 && tempStreet.Length >= 2 && tempName[1]!= "Inne")
                 stations.Add(new Petrol
                 {
                     Name = tempName[1],
-                    Street = tempStreet[1],
+                    Street = tempStreet[1].Split('/')[0],
                     Price = tempPrice[1]
                 });
                 k++;
@@ -108,6 +111,65 @@ namespace EkoApp.Services
                 string[] delimeterWords = { "\"city\":\"", "\",\"suburb\"" };
                 string[] test = body.Split(delimeterWords, StringSplitOptions.None);
                 return test[1];
+            }
+        }
+        public static async Task<float> GetDistance(string clientLat, string clientLong, string petrolLat, string petrolLong)
+        {
+            string url = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248338e15fa82e94419b2dd6dab1b9d8e0c&start=" + clientLong + ',' + clientLat + "&end=" + petrolLong + "," + petrolLat;
+            var baseAddress = new Uri(url);
+
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = baseAddress
+            };
+
+            using (var response = await client.SendAsync(request))
+            {
+                string[] delimeterDistance =
+                    {
+                    "\"distance\":", ",\"duration\""
+                    };
+                string body = await response.Content.ReadAsStringAsync();
+                string[] distTB = body.Split(delimeterDistance, StringSplitOptions.None);
+                return float.Parse(distTB[1], CultureInfo.InvariantCulture.NumberFormat);
+            }
+        }
+        public static async Task<Tuple<string, string>> GeoCode(string street)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://geoapify-platform.p.rapidapi.com/v1/geocode/search?apiKey=a66b15f2e00b41bb9bc1f89e3e3e95a9&text=" + street + "&lang=en&limit=1"),
+                Headers =
+    {
+        { "x-rapidapi-key", "bdd083fea6mshd1e6fda33f40feap1e0940jsn473be46e109c" },
+        { "x-rapidapi-host", "geoapify-platform.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                string body = await response.Content.ReadAsStringAsync();
+            //    string[] diameterLon =
+            //    {
+            //    "\"lon\":", ",\"lat\""
+            //};
+            //    string[] lonTB = body.Split(diameterLon, StringSplitOptions.None);
+            //    string lon = lonTB[1];
+
+                string[] diameterLat =
+                {
+               "coordinates\":[", "]}"
+            };
+                string[] latTB = body.Split(diameterLat, StringSplitOptions.None);
+                var coord = latTB[1].Split(",");
+
+                string lat = latTB[1];
+
+                return new Tuple<string, string>(coord[0], coord[1]);
             }
         }
     }

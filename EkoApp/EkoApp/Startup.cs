@@ -74,7 +74,7 @@ namespace EkoApp
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Account}/{action=Home}/{id?}");
+					pattern: "{controller=PetrolStation}/{action=Index}/{id?}");
 			});
 		}
 	}

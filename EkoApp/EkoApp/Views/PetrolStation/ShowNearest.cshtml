@@ -1,0 +1,13 @@
+﻿@model List<EkoApp.ViewsModel.PetrolWithData>
+
+@foreach (var petrol in @Model)
+{
+    <div class="col-12 border  p-3 mt-3 bg-white">
+        <form>
+
+                    <div class="text-dark mb-2">
+                       Nazwa stacji: @petrol.Petrol.Name | Odległość do stacji: @(petrol.Distance/1000) km | Adres stacji: @petrol.Petrol.Street | Rzeczywista cena za lirt: @petrol.RealPricePerLiter zł | Cena za litr: @petrol.Petrol.Price
+                    </div>
+                </form>
+               </div>
+}
