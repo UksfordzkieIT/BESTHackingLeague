@@ -36,7 +36,7 @@ namespace EkoApp.Controllers
 		{
 			return View(new LocalisationModel());
 		}
-		public async Task<IActionResult> ShowNearest(string latitude, string longitude, string fuelVolume, string fuelConsumption)
+		public async Task<IActionResult> ShowNearest(string latitude, string longitude, string fuelVolume, string fuelConsumption, string fuelType)
 		{
 			string nazwaMiastaEng = await _geolocService.ReversedGeocode(latitude, longitude);
 			if (nazwaMiastaEng != null)
@@ -45,7 +45,7 @@ namespace EkoApp.Controllers
 				ViewData["longitude"] = longitude;
 				List<PetrolWithData> petrols = new List<PetrolWithData>();
 				
-				var neartestPetrols = _geolocService.GetNearestPetrols(TlumaczNazwe(nazwaMiastaEng), "e95");
+				var neartestPetrols = _geolocService.GetNearestPetrols(TlumaczNazwe(nazwaMiastaEng), fuelType);
 
 				var fuelVol = double.Parse(fuelVolume);
 				double fuelConsum = double.Parse(fuelConsumption);

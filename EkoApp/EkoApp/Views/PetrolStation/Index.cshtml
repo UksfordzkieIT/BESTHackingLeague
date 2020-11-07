@@ -1,26 +1,41 @@
 ﻿@model EkoApp.ViewsModel.LocalisationModel
-    <div class="col-12 p-3 offset-1">
-        <div id="kk" style="background-color:white;margin-top:5%" class="col-4 p-3 offset-3 rounded">
-            <div class="form-group row" style="">
-                <div class="col-3 text-center">
-                    <label>Ile litrów chcesz zatankować?</label>
-                </div>
-                <div class="col-6">
-                    <input name="Volume" onChange="onInput();" type="text" id="inpta" value="0,00" />
-                </div>
+<div class="col-12 p-3 offset-1">
+
+    <div id="kk" style="background-color:white;margin-top:5%" class="col-4 p-3 offset-3 rounded">
+
+        <div class="form-group row" style="">
+            <div class="col-3 text-center">
+            <label>Wybierz rodzaj paliwa:</label>
+        </div>
+        <div class="col-6">
+            <select name="fruit" id="fueltype">
+                <option value="e95" selected="selected">E 95</option>
+                <option value="on">ON</option>
+                <option value="e98">E 98</option>
+                <option value="lpg">LPG</option>
+            </select>
+        </div>
+    </div>
+        <div class="form-group row" style="">
+            <div class="col-3 text-center">
+                <label>Ile litrów chcesz zatankować?</label>
             </div>
-            <div class="form-group row">
-                <div class="col-3 text-center">
-                    <label>Podaj średnie spalanie:</label>
-                </div>
-                <div class="col-6">
-                    <input name="FuelConsumption" onChange="onInputFuel();" type="text" id="inpta2" value="0,00" />
-                </div>
-            </div>
-            <div class="col-12 offset-3">
-                <a class="btn btn-light" id="ka" style="background-color:aquamarine">Wyswietl stacje</a>
+            <div class="col-6">
+                <input name="Volume" onChange="onInput();" type="text" id="inpta" value="0,00" />
             </div>
         </div>
+        <div class="form-group row">
+            <div class="col-3 text-center">
+                <label>Podaj średnie spalanie:</label>
+            </div>
+            <div class="col-6">
+                <input name="FuelConsumption" onChange="onInputFuel();" type="text" id="inpta2" value="0,00" />
+            </div>
+        </div>
+        <div class="col-12 offset-3">
+            <a class="btn btn-light" id="ka" style="background-color:aquamarine">Wyswietl stacje</a>
+        </div>
+    </div>
     </div>
 
 
@@ -45,8 +60,11 @@
             var inpt = document.getElementById('inpta');
             vol = inpt.value;
 
+            var e = document.getElementById("fueltype");
+            var strUser = e.value;
+
             if (fuel != null) {
-                link2 = link + inpt.value + "&fuelConsumption=" + fuel;
+                link2 = link + inpt.value + "&fuelConsumption=" + fuel + "&fuelType=" + strUser;
                 var anch = document.getElementById('ka');
                 anch.href = link2;
             }
@@ -56,8 +74,11 @@
             var inpt = document.getElementById('inpta2');
             fuel = inpt.value;
 
+            var e = document.getElementById("fueltype");
+            var strUser = e.value;
+
             if (vol != null) {
-                link2 = link + vol + "&fuelConsumption=" + fuel;
+                link2 = link + vol + "&fuelConsumption=" + fuel + "&fuelType=" + strUser;;
                 var anch = document.getElementById('ka');
                 anch.href = link2;
             }
