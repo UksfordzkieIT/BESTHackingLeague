@@ -38,27 +38,35 @@ namespace EkoApp.Controllers
 		[HttpGet]
 		public IActionResult Add()
 		{
-			return View(new FuelBill());
+			return View(new FuelBillToAdd());
 		}
 		[HttpPost]
-		public IActionResult Add(FuelBill fuelBill)
+		public IActionResult Add(FuelBillToAdd fuelBill)
 		{
 			if (!ModelState.IsValid)
 			{
 				return View(fuelBill);
 			}
-			var bill = new FuelBill
+			try
 			{
-				Id = Guid.NewGuid(),
-				DateTime = DateTime.Now,
-				PricePerLitr = fuelBill.PricePerLitr,
-				TotalPrice = fuelBill.TotalPrice,
-				Volume = fuelBill.Volume,
-				UserDbId = Guid.Parse(_userId)
-			};
+				var bill = new FuelBill
+				{
+					Id = Guid.NewGuid(),
+					DateTime = DateTime.Now,
+					TotalPrice = float.Parse(fuelBill.TotalPrice),
+					Volume = float.Parse(fuelBill.Volume),
+					UserDbId = Guid.Parse(_userId)
+				};
+				bill.PricePerLitr = bill.TotalPrice / bill.Volume;
+				_appDbContext.FuelBills.Add(bill);
+				_appDbContext.SaveChanges();
+				return RedirectToAction("AllBills", "Statistic");
+			}
+			catch(Exception ex)
+			{
 
-			_appDbContext.FuelBills.Add(bill);
-			_appDbContext.SaveChanges();
+			}
+
 			return View();
 		}
 		//[HttpGet("Edit/{billId}")]

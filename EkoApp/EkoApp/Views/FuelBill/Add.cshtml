@@ -1,4 +1,4 @@
-﻿@model FuelBill
+﻿@model EkoApp.ViewsModel.FuelBillToAdd
 
 @{
     ViewData["Title"] = "Fuel Bill";
@@ -14,36 +14,23 @@
 <div class="row">
     <div class="col-12 p-3 mt-5">
         <form asp-action="Add" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="PricePerLitr"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
+                    <label asp-for="TotalPrice" class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
-                    <input asp-for="PricePerLitr" class="form-control" value="0.00" />
+                    <input asp-for="TotalPrice" class="form-control" value="0,00" />
                 </div>
-                <span asp-validation-for="PricePerLitr" class="text-danger"></span>
             </div>
 
             <div class="form-group row">
                 <div class="col-3 text-center">
-                    <label asp-for="TotalPrice"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
+                    <label asp-for="Volume" class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
-                    <input asp-for="TotalPrice" class="form-control" value="0.00" />
+                    <input asp-for="Volume" class="form-control" value="0,00" />
                 </div>
-                <span asp-validation-for="TotalPrice" class="text-danger"></span>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-3 text-center">
-                    <label asp-for="Volume"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
-                </div>
-                <div class="col-6">
-                    <input asp-for="Volume" class="form-control" value="0.00" />
-                </div>
-                <span asp-validation-for="Volume" class="text-danger"></span>
             </div>
 
             <div class="row">

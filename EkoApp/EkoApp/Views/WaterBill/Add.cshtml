@@ -1,4 +1,4 @@
-﻿@model WaterBill
+﻿@model EkoApp.ViewsModel.WaterBillToAdd
 
 @{
     ViewData["Title"] = "Water Bill";
@@ -21,7 +21,7 @@
                     <label asp-for="Price"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
-                    <input asp-for="Price" class="form-control" value=""/>
+                    <input asp-for="Price" class="form-control" value="0,00"/>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                     <label asp-for="Volume"  class="control-label h5 p-2 rounded" style="background-color:white"></label>
                 </div>
                 <div class="col-6">
-                    <input asp-for="Volume" class="form-control" value=""/>
+                    <input asp-for="Volume" class="form-control" value="0,00"/>
                 </div>
             </div>
 

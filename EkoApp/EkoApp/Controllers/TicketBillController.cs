@@ -39,25 +39,33 @@ namespace EkoApp.Controllers
 		[HttpGet]
 		public IActionResult Add()
 		{
-			return View(new TicketBill());
+			return View(new TicketBillToAdd());
 		}
 		[HttpPost]
-		public IActionResult Add(TicketBill ticketBill)
+		public IActionResult Add(TicketBillToAdd ticketBill)
 		{
 			if (!ModelState.IsValid)
 			{
 				return View(ticketBill);
 			}
-			var bill = new TicketBill
+			try
 			{
-				Id = Guid.NewGuid(),
-				DateTime = DateTime.Now,
-				Price = ticketBill.Price,
-				UserDbId = Guid.Parse(_userId)
-			};
+				var bill = new TicketBill
+				{
+					Id = Guid.NewGuid(),
+					DateTime = DateTime.Now,
+					Price = float.Parse(ticketBill.Price),
+					UserDbId = Guid.Parse(_userId)
+				};
 
-			_appDbContext.TicketBills.Add(bill);
-			_appDbContext.SaveChanges();
+				_appDbContext.TicketBills.Add(bill);
+				_appDbContext.SaveChanges();
+				return RedirectToAction("AllBills", "Statistic");
+			}
+			catch(Exception ex)
+			{
+
+			}
 			return View();
 		}
 		//[HttpGet("Edit/{billId}")]

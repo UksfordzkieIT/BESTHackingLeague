@@ -36,26 +36,34 @@ namespace EkoApp.Controllers
 		[HttpGet]
 		public IActionResult Add()
 		{
-			return View(new WaterBill());
+			return View(new WaterBillToAdd());
 		}
 		[HttpPost]
-		public IActionResult Add(WaterBill waterBill)
+		public IActionResult Add(WaterBillToAdd waterBill)
 		{
 			if (!ModelState.IsValid)
 			{
 				return View(waterBill);
 			}
-			var bill = new WaterBill
+			try
 			{
-				Id = Guid.NewGuid(),
-				DateTime = DateTime.Now,
-				Price = waterBill.Price,
-				Volume = waterBill.Volume,
-				UserDbId = Guid.Parse(_userId)
-			};
+				var bill = new WaterBill
+				{
+					Id = Guid.NewGuid(),
+					DateTime = DateTime.Now,
+					Price = float.Parse(waterBill.Price),
+					Volume = float.Parse(waterBill.Volume),
+					UserDbId = Guid.Parse(_userId)
+				};
 
-			_appDbContext.WaterBills.Add(bill);
-			_appDbContext.SaveChanges();
+				_appDbContext.WaterBills.Add(bill);
+				_appDbContext.SaveChanges();
+				return RedirectToAction("AllBills", "Statistic");
+			}
+			catch(Exception ex)
+			{
+
+			}
 			return View();
 		}
 		//[HttpGet("{billId}")]
