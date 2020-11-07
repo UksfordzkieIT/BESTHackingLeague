@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EkoApp.Services
 {
-    public static class GeolocService
+    public class GeolocService
     {
         public struct Petrol
         {
@@ -16,7 +16,7 @@ namespace EkoApp.Services
             public string Street { get; set; }
             public string Price { get; set; }
         };
-        public static string GetBetween(string strSource, string strStart, string strEnd)
+        public string GetBetween(string strSource, string strStart, string strEnd)
         {
             if (strSource.Contains(strStart) && strSource.Contains(strEnd))
             {
@@ -27,26 +27,9 @@ namespace EkoApp.Services
             }
             return "";
         }
-        public static List<Petrol> GetNearestPetrols(string city, string fuelType)
+        public List<Petrol> GetNearestPetrols(string city, string fuelType)
         {
             var client = new WebClient();
-            //Dictionary<string, string> countys = new Dictionary<string, string>();
-            //countys.Add("Lower Silesian","dolno-slaskie");
-            //countys.Add("Kuyavian-Pomeranian","kujawsko-pomorskie");
-            //countys.Add("Lublin","lubelskie");
-            //countys.Add("Lubusz","Lublin");
-            //countys.Add("Łódź","lodzkie");
-            //countys.Add("Lesser Poland","malopolskie");
-            //countys.Add("Masovian","mazowieckie");
-            //countys.Add("Opole","opolskie");
-            //countys.Add("Subcarpathian","podkarpackie");
-            //countys.Add("podlaskie","podlaskie");
-            //countys.Add("Pomeranian","pomorskie");
-            //countys.Add("Silesian","slaskie");
-            //countys.Add("Świętokrzyskie","swietokrzyskie");
-            //countys.Add("Warmian-Masurian","warminsko-mazurskie");
-            //countys.Add("Greater Poland","wielkopolskie");
-            //countys.Add("West Pomeranian", "zachodniopomorskie");
 
             string text = client.DownloadString("https://cenapaliw.pl/stationer/" + fuelType + "/alla/"+ city);
             List<Petrol> stations = new List<Petrol>();
@@ -66,9 +49,7 @@ namespace EkoApp.Services
             string[] delimeterPrice = {
                  "color: #000000;\">","</b><br /><small>"
              };
-
-
-            int k = 0;
+           int k = 0;
 
             foreach (var i in test)
             {
@@ -91,7 +72,7 @@ namespace EkoApp.Services
             }
             return stations;
         }
-        public static async Task<string> ReversedGeocode(string lant, string longi)
+        public async Task<string> ReversedGeocode(string lant, string longi)
         {
             var client = new HttpClient();
             var ulr = "https://geoapify-platform.p.rapidapi.com/v1/geocode/reverse?lat=" + lant + "&apiKey=a66b15f2e00b41bb9bc1f89e3e3e95a9&lon=" + longi + "&lang=en&limit=1&type=city";
@@ -124,7 +105,7 @@ namespace EkoApp.Services
             }
             return null;
         }
-        public static async Task<float> GetDistance(string clientLat, string clientLong, string petrolLat, string petrolLong)
+        public async Task<float> GetDistance(string clientLat, string clientLong, string petrolLat, string petrolLong)
         {
             string url = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248338e15fa82e94419b2dd6dab1b9d8e0c&start=" + clientLong + ',' + clientLat + "&end=" + petrolLong + "," + petrolLat;
             var baseAddress = new Uri(url);
@@ -152,7 +133,7 @@ namespace EkoApp.Services
                 return -1;
             }
         }
-        public static async Task<Tuple<string, string>> GeoCode(string street)
+        public async Task<Tuple<string, string>> GeoCode(string street)
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage

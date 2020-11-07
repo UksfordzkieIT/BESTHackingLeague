@@ -11,6 +11,11 @@ namespace EkoApp.Controllers
 	[Authorize]
 	public class PetrolStationController : Controller
 	{
+		private readonly GeolocService _geolocService;
+		public PetrolStationController(GeolocService geolocService)
+		{
+			_geolocService = geolocService;
+		}
 		private string TlumaczNazwe(string nazwa)
 		{
 			if(nazwa.ToLower() == "warsaw")
@@ -33,14 +38,14 @@ namespace EkoApp.Controllers
 		}
 		public async Task<IActionResult> ShowNearest(string latitude, string longitude, string fuelVolume, string fuelConsumption)
 		{
-			string nazwaMiastaEng = await GeolocService.ReversedGeocode(latitude, longitude);
+			string nazwaMiastaEng = await _geolocService.ReversedGeocode(latitude, longitude);
 			if (nazwaMiastaEng != null)
 			{
 				ViewData["latitude"] = latitude;
 				ViewData["longitude"] = longitude;
 				List<PetrolWithData> petrols = new List<PetrolWithData>();
 				
-				var neartestPetrols = GeolocService.GetNearestPetrols(TlumaczNazwe(nazwaMiastaEng), "e95");
+				var neartestPetrols = _geolocService.GetNearestPetrols(TlumaczNazwe(nazwaMiastaEng), "e95");
 
 				var fuelVol = double.Parse(fuelVolume);
 				double fuelConsum = double.Parse(fuelConsumption);
@@ -60,10 +65,10 @@ namespace EkoApp.Controllers
 					}
 					nazwa += ',' + TlumaczNazwe(nazwaMiastaEng);
 	
-					var petrolCoord = await GeolocService.GeoCode(nazwa);
+					var petrolCoord = await _geolocService.GeoCode(nazwa);
 					if (petrolCoord != null)
 					{
-						var dist = await GeolocService.GetDistance(latitude, longitude, petrolCoord.Item2, petrolCoord.Item1);
+						var dist = await _geolocService.GetDistance(latitude, longitude, petrolCoord.Item2, petrolCoord.Item1);
 						if (dist != -1)
 						{
 							var realPrice = (float.Parse(price[0]) * fuelVol) / (fuelVol - ((2 * dist) / 100000 * fuelConsum));

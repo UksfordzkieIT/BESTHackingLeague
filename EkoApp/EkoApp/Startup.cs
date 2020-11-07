@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EkoApp.Data;
 using EkoApp.Entities;
+using EkoApp.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +48,7 @@ namespace EkoApp
 				.AddEntityFrameworkStores<AppDbContext>();
 
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+			services.AddTransient<GeolocService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
